@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行攻略 | Travel Guides</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+        }
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+        .guide-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        .guide-card:hover {
+            transform: translateY(-5px);
+        }
+        .guide-content {
+            padding: 20px;
+        }
+        .guide-content h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .guide-content p {
+            margin: 0;
+            color: #666;
+        }
+        .guide-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .coming-soon {
+            opacity: 0.7;
+            position: relative;
+        }
+        .coming-soon::after {
+            content: 'Coming Soon';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .note {
+            background-color: #eaf6ff;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 0 auto 30px auto;
+            border-radius: 5px;
+            max-width: 800px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>旅行攻略 | Travel Guides</h1>
+
+        <div class="note">
+            本站为精简版，仅保留通用框架与要点。完整行程与明细在小程序中查看：<br>
+            <a href="https://github.com/ElenaZinn/travel-itinerary-miniprogram" target="_blank" rel="noopener">github.com/ElenaZinn/travel-itinerary-miniprogram</a>
+        </div>
+
+        <div class="guides-grid">
+            <!-- Iceland Guide -->
+            <a href="guides/iceland/index.html" class="guide-link">
+                <div class="guide-card">
+                    <div class="guide-content">
+                        <h2>冰岛旅行攻略（精简版）</h2>
+                        <p>签证申请、出行前准备、行程安排、预算参考与实用信息的精简框架。</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Future Guides (Coming Soon) -->
+            <div class="guide-card coming-soon">
+                <div class="guide-content">
+                    <h2>London Travel Guide</h2>
+                    <p>Coming soon.</p>
+                </div>
+            </div>
+
+            <div class="guide-card coming-soon">
+                <div class="guide-content">
+                    <h2>XXX Travel Guide</h2>
+                    <p>Coming soon.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="text-align:center; color:#888; margin-top:40px; font-size:14px;">
+        © 2024 Elena Zinn. All rights reserved.
+        <br>
+        本网站内容仅供个人学习与参考，禁止转载、禁止商用。如需合作请联系作者。
+    </footer>
+</body>
+</html>

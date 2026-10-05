@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冰岛旅行攻略（精简版）</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f9f9f9;
+        }
+        #toc {
+            width: 350px;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #f8f9fa;
+            padding: 30px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #90A4AE #CFD8DC;
+            max-height: calc(100vh - 20px);
+            padding-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        #toc.hidden {
+            transform: translateX(-100%);
+        }
+        #content {
+            margin-left: 340px;
+            max-width: 800px;
+            padding: 40px;
+            margin-right: 40px;
+            transition: all 0.3s ease;
+        }
+        #content.expanded {
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            max-width: 800px;
+        }
+        @media (max-width: 1200px) {
+            #content.expanded {
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+        }
+        #toggle-toc {
+            position: fixed;
+            left: 350px;
+            top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        #toggle-toc:hover {
+            background-color: #0056b3;
+            width: 28px;
+        }
+        #toggle-toc.hidden {
+            left: 0;
+            transform: rotate(180deg);
+        }
+        #toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        #toc li {
+            margin: 10px 0;
+        }
+        #toc a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        #toc a:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+        #toc .toc-h2 {
+            padding-left: 20px;
+        }
+        #toc .toc-h3 {
+            padding-left: 40px;
+        }
+        #toc .toc-h4 {
+            padding-left: 60px;
+        }
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 2em;
+            margin-top: 40px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h3 {
+            font-size: 1.5em;
+            border-bottom: 1px solid #ccc;
+            margin-top: 30px;
+            padding-bottom: 8px;
+        }
+        h4 {
+            font-size: 1.2em;
+            margin-top: 25px;
+        }
+        ul, ol {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 12px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            background-color: #eaf6ff;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fff4e5;
+            border-left: 5px solid #f39c12;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        strong {
+            color: #c0392b;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .day-block {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        /* 为Webkit浏览器（Chrome、Safari等）定制滚动条样式 */
+        #toc::-webkit-scrollbar {
+            width: 8px;
+        }
+        #toc::-webkit-scrollbar-track {
+            background: #CFD8DC;
+            border-radius: 4px;
+        }
+        #toc::-webkit-scrollbar-thumb {
+            background-color: #90A4AE;
+            border-radius: 4px;
+            border: 2px solid #CFD8DC;
+        }
+        #toc::-webkit-scrollbar-thumb:hover {
+            background-color: #78909C;
+        }
+        #toc a.active {
+            background-color: #e9ecef;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .watermark-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9999;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        opacity: 0.10;
+        }
+        .watermark-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1em;
+            color: #222;
+            font-weight: bold;
+            transform: rotate(-25deg);
+            user-select: none;
+            white-space: nowrap;
+        }
+        /* 基础图片样式 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .image-container {
+            margin: 1rem 0;
+        }
+    </style>
+    <script>
+        // 当页面加载完成时执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有章节
+            const sections = document.querySelectorAll('h2, h3, h4');
+            // 获取所有目录链接
+            const navLinks = document.querySelectorAll('#toc a');
+            // 获取目录和内容元素
+            const toc = document.getElementById('toc');
+            const content = document.getElementById('content');
+            const toggleButton = document.getElementById('toggle-toc');
+
+            // 添加目录切换功能
+            toggleButton.addEventListener('click', function() {
+                toc.classList.toggle('hidden');
+                content.classList.toggle('expanded');
+                toggleButton.classList.toggle('hidden');
+            });
+
+            // 创建 Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // 当章节进入视图
+                    if (entry.isIntersecting) {
+                        // 移除所有链接的active类
+                        navLinks.forEach(link => link.classList.remove('active'));
+
+                        // 找到对应的目录链接并添加active类
+                        const id = entry.target.getAttribute('id');
+                        const correspondingLink = document.querySelector(`#toc a[href="#${id}"]`);
+                        if (correspondingLink) {
+                            correspondingLink.classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                // 设置根边距，提前触发交叉
+                rootMargin: '-20% 0px -60% 0px'
+            });
+
+            // 观察所有章节
+            sections.forEach(section => {
+                if (section.id) {
+                    observer.observe(section);
+                }
+            });
+
+            // 平滑滚动效果
+            document.querySelectorAll('#toc a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        // 更新URL，但不跳转
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="watermark-grid">
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+    <div class="watermark-cell">ElenaZinn.github.io</div>
+</div>
+    <nav id="toc">
+        <h3 style="margin-top: 0;">目录</h3>
+        <ul>
+            <li><a href="#part1">第一部分：签证申请</a></li>
+            <li class="toc-h3"><a href="#materials">申请材料清单（节选）</a></li>
+            <li><a href="#part2">第二部分：出行前准备</a></li>
+            <li><a href="#part3">第三部分：行程安排</a></li>
+            <li class="toc-h3"><a href="#day1">第一天：市区漫步</a></li>
+            <li class="toc-h3"><a href="#day2">第二天：观鲸与博物馆</a></li>
+            <li class="toc-h3"><a href="#day3-5">第三至五天：南岸三日游</a></li>
+            <li class="toc-h3"><a href="#day6">第六天：市内体验与回程</a></li>
+            <li><a href="#part4">第四部分：预算参考</a></li>
+            <li><a href="#part5">第五部分：实用信息</a></li>
+            <li class="toc-h3"><a href="#aurora">极光指南</a></li>
+            <li class="toc-h3"><a href="#local-transport">冰岛本地交通与寄存</a></li>
+        </ul>
+    </nav>
+    <button id="toggle-toc" aria-label="切换目录">◀</button>
+    <div id="content">
+        <h1>冰岛旅行攻略</h1>
+
+        <div class="note">
+            <p>本页为<strong>精简版</strong>，仅保留通用框架与要点。签证材料、每日行程、预算明细等完整内容请在小程序中查看。</p>
+            <p>小程序项目地址：<a href="https://github.com/ElenaZinn/travel-itinerary-miniprogram" target="_blank" rel="noopener">github.com/ElenaZinn/travel-itinerary-miniprogram</a></p>
+        </div>
+
+        <!-- Part 1: Visa Application -->
+        <h2 id="part1">第一部分：签证申请</h2>
+        <p><strong>基本原则：</strong>应向本次申根区行程中逗留时间最长的国家申请签证；如果多段行程同等长度，才申请第一个入境国的签证。冰岛一般 45 天出签，建议提前 3、4 个月申请。</p>
+
+        <h3 id="materials">申请材料清单（节选）</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>材料名称</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>申根签证个人申请表</td>
+                    <td>在 VFS 官网下载填写。</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>护照原件及复印件</td>
+                    <td>有效期需超过预计离开申根区日期 90 天。</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>白底证件照</td>
+                    <td>2 张，近半年内拍摄。</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>银行流水</td>
+                    <td>近 3–6 个月。</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>往返机票预订单</td>
+                    <td>需覆盖整个行程。</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note">其余材料与重点材料注意事项（财务证明、在职与收入证明、过境签核实等）已精简，完整版请在小程序中查看。</p>
+
+        <!-- Part 2: Pre-trip Preparation -->
+        <h2 id="part2">第二部分：出行前准备</h2>
+        <ul>
+            <li><strong>通讯：</strong>按需购买欧洲电话卡。</li>
+            <li><strong>衣物（三明治穿衣法：速干 + 抓绒 + 冲锋衣）：</strong>防风防水的外套与裤子、抓绒衣、速干衣、雪地靴或徒步鞋、防水手套、帽子、羊毛袜。</li>
+            <li><strong>实用小物：</strong>欧洲转换插头、防滑鞋套（简易冰爪）、RFID 防盗卡膜、AirTag。</li>
+        </ul>
+        <p class="note">更完整的准备事项（机票与住宿预订、需打印的文件、转机液体规定等）已精简，完整版请在小程序中查看。</p>
+
+        <!-- Part 3: Itinerary -->
+        <h2 id="part3">第三部分：行程安排</h2>
+        <p class="note"><strong>通用提示：</strong>冰岛酒店通常 <strong>15:00 后入住，11:00 前退房</strong>；导航推荐使用 Google Maps。</p>
+
+        <div class="day-block">
+            <h4 id="day1">第一天：抵达雷克雅未克 &amp; 市区漫步</h4>
+            <p>市区主要景点集中，步行即可逛完，可自行安排顺序：</p>
+            <ul>
+                <li>托宁湖 (Tjörnin)</li>
+                <li>哈帕音乐厅 (Harpa Concert Hall)</li>
+                <li>彩虹街 (Skólavörðustígur Rainbow Street)</li>
+                <li>哈尔格林姆斯大教堂 (Hallgrímskirkja)</li>
+            </ul>
+        </div>
+
+        <div class="day-block">
+            <h4 id="day2">第二天：出海观鲸 &amp; 探索博物馆</h4>
+            <p>观鲸团建议提前预订，港口在哈帕音乐厅附近。博物馆可自行选择：</p>
+            <ul>
+                <li>熔岩秀 (Lava Show)</li>
+                <li>冰岛国家美术馆 (The National Gallery of Iceland)</li>
+                <li>维京传奇博物馆 (Saga Museum)</li>
+                <li>珍珠楼 (Perlan)</li>
+                <li>冰岛国家博物馆 (National Museum of Iceland)</li>
+                <li>冰岛飞越 (FlyOver Iceland)</li>
+            </ul>
+        </div>
+
+        <div class="day-block">
+            <h4 id="day3-5">第三至五天：南岸三日精华游（跟团）</h4>
+            <p>参加旅行团是游览南岸的一种方式，省心省力，含 2 晚住宿与餐食，也能到达部分自驾不便前往的地点。</p>
+            <p class="note">每日具体景点、游览顺序、住宿与餐饮等细节已精简，完整版请在小程序中查看。</p>
+        </div>
+
+        <div class="day-block">
+            <h4 id="day6">第六天：市内体验 &amp; 回程</h4>
+            <p>上午寄存行李，可体验熔岩秀 (Lava Show)；晚上乘 Flybus 前往机场附近住宿，准备回程。</p>
+        </div>
+
+        <!-- Part 4: Budget -->
+        <h2 id="part4">第四部分：预算参考</h2>
+        <div class="note">
+            <p><strong>行程概览：</strong>总共 10 天，其中约 3.5 天在路上，6.5 天在冰岛。</p>
+            <h4>固定支出明细</h4>
+            <ul>
+                <li><strong>南岸三日游：</strong>xxxx</li>
+                <li><strong>观鲸活动：</strong>xxxx</li>
+                <li><strong>酒店住宿：</strong>xxxx</li>
+                <li><strong>机票：</strong>xxxx</li>
+                <li><strong>签证费用：</strong>xxxx</li>
+            </ul>
+            <p>具体金额与餐饮参考已隐去，完整预算请在小程序中查看。</p>
+        </div>
+
+        <!-- Part 5: Practical Info -->
+        <h2 id="part5">第五部分：实用信息</h2>
+
+        <h3 id="aurora">极光指南</h3>
+        <p class="note">极光预测方法与拍摄技巧已精简，完整版请在小程序中查看。</p>
+
+        <h3 id="local-transport">冰岛本地交通与寄存</h3>
+
+        <h4>电话打车</h4>
+        <ul>
+            <li><strong>电话号码：</strong>
+                <ul>
+                    <li>雷克雅未克地区：<code>+354 588 5522</code></li>
+                    <li>凯夫拉维克机场地区：<code>+354 420 1212</code></li>
+                </ul>
+            </li>
+            <li><strong>流程：</strong>打电话告知位置、目的地、人数和英文名，支持现金或信用卡支付。</li>
+            <li><strong>价格：</strong>比较贵，7 分钟车程约 4600 冰岛克朗（约 247 元人民币）。</li>
+        </ul>
+
+        <h4>行李寄存（雷克雅未克）</h4>
+        <ul>
+            <li><strong>位置：</strong>BSÍ Bus Terminal Reykjavík，在车站主楼右手边。</li>
+            <li><strong>营业时间：</strong>24 小时，有监控，安全可靠。</li>
+            <li><strong>价格参考：</strong>XL 尺寸的寄存柜 24 小时约 3990 ISK，可放下 26 寸行李箱 + 背包。</li>
+        </ul>
+        <div class="image-container">
+            <img src="../../images/laguagestory.png" alt="寄存位置" style="max-width: 350px; border: 1px solid #ddd;" />
+        </div>
+        <div class="image-container">
+            <img src="../../images/storysize.png" alt="寄存尺寸" style="max-width: 350px; border: 1px solid #ddd;" />
+        </div>
+
+        <p class="note">购物与退税、芬兰赫尔辛基转机攻略、语言交流等章节已精简，完整版请在小程序中查看。</p>
+
+        <p style="text-align:center; margin-top:50px; color:#777; font-size:1.2em;">祝您有一段难忘的冰岛之旅！</p>
+    </div>
+</body>
+</html>
